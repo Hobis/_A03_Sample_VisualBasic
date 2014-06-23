@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+<title>Main</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="js/jquery-1.10.2.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/swfobject.js" charset="utf-8"></script>
+<script type="text/javascript">
+// :: 랜덤코드 한번만
+var p_get_ranCode = function() {
+	//var t_rv = String(Math.floor(Math.random() * Math.pow(10, 8)));
+	var t_rv = String(new Date().getTime());
+	return t_rv;
+};
+
+// :: 랜덤코드 한번만 발생
+var p_get_ranCode_once = function() {
+	if (window.d__ranCode == undefined) {
+		window.d__ranCode = p_get_ranCode();
+	}
+
+	return window.d__ranCode;
+};
+
+// ::
+var p_get_connName = function() {
+	return 'mainConnectionName_' + p_get_ranCode_once();
+};
+
+// ::
+var p_get_requestName = function() {
+	return 'eBookConnectionName_' + p_get_ranCode_once();
+};
+
+// :: 파라미터 출력
+var p_args_alert = function(args) {
+	var t_str = '';
+	var t_la = args.length;
+	var i;
+	for (i = 0; i < t_la; i++) {
+		if (i < t_la - 1)
+			t_str += args[i] + ', ';
+		else
+			t_str += args[i];
+	}
+
+	alert(t_str);
+};
+
+// :: swf객체 참조
+var p_get_swfObj = function(movieName) {
+	return jQuery('#' + movieName)[0];
+};
+
+// :: js3 -> as3 호출
+var p_js3_call = function() {
+	try {
+		var t_swfObj = p_get_swfObj('main_swf');
+		t_swfObj.p_as3_call.apply(t_swfObj, arguments);
+	}
+	catch (e) {
+		alert(e);
+	}
+
+	//alert('p_js3_call');
+	//alert('arguments: ' + arguments);
+	//p_args_alert(arguments);
+};
+
+// :: js2 -> as2 호출
+var p_js2_call = function() {
+	try {
+		var t_swfObj = p_get_swfObj('main_swf');
+		t_swfObj.p_as2_call.apply(t_swfObj, arguments);
+	}
+	catch (e) {
+		alert(e);
+	}
+
+	//alert('p_js2_call');
+	//alert('arguments: ' + arguments);
+	//p_args_alert(arguments);
+};
+
+// :: 컨텐츠 닫기
+var p_content_close = function() {
+};
+
+// :: 컨텐츠 열기
+var p_content_open = function(name) {
+};
+
+// :: 인자 ActiveXObjec로 만들기
+var hb_get_paramsFromActiveXObject = function(args) {
+	var t_rv = null;
+
+	try {
+		var t_dic = new ActiveXObject('Scripting.Dictionary');
+
+		for (
+			var
+				i = 0,
+				t_la = args.length;
+				i < t_la;
+				i++
+		) {
+			t_dic.add(i, args[i]);
+		}
+
+		t_rv = t_dic.Items();
+	}
+	catch (e) {
+	}
+
+	return t_rv;
+};
+
+// :: 메인 콜
+var p_mainCall = function(type, args) {
+	try {
+		if (args != undefined) {
+			var t_dic = hb_get_paramsFromActiveXObject(args);
+			window.external.Js_CallBack(type, t_dic);
+		}
+		else {
+			window.external.Js_CallBack_n(type);
+		}
+	}
+	catch (e) {
+		alert(e);
+	}
+};
+/*
+function toFlex(text)
+{
+	return document.getElementById("main_swf").p_as3_call();
+}
+
+var flashvars = {};
+var params = {};
+var attributes = {id:"main_swf",  name:"main_swf"};
+swfobject.embedSWF('Main.swf',
+	'mainCont_dv', '100%', '100%', '11.0.0', null, flashvars, params, attributes);*/
+
+// - 도큐먼트 시작
+jQuery(document).ready(function() {
+	//p_get_swfObj('main_swf').d_as3_init();
+	//p_get_swfObj('main_swf').d_as2_init();
+
+	//p_mainCall('Js_Init');
+	//p_mainCall('Win_Rename', ['Outer']);
+	//p_mainCall('Win_Visible', [true]);
+	//p_mainCall('Win_Resize_Max');
+	//p_mainCall('Win_Resize_Min');
+	//p_mainCall('Win_Resize_Normal');
+	//p_mainCall('Win_Resize', [500, 500]);
+
+/*
+	setTimeout(function() {
+		p_js3_call();
+	}, 3000);*/
+
+	jQuery('#test_dv').click(
+		function() {
+			alert(1004);
+		}
+	);
+});
+</script>
+<style type="text/css" media="screen">
+	body {
+		margin: 0px; padding: 0px; overflow: hidden;
+		background-color: #ffffff;
+	}
+
+	#mainCont_dv {
+		width: 100%; height: 100%; position: absolute; left: 0px; top: 0px;
+		overflow: hidden; display: none;
+	}
+	#subCont_dv {
+		width: 100%; height: 100%; position: absolute; left: 0px; top: 0px;
+		display: none; overflow: hidden;
+	}
+</style>
+</head>
+
+<body>
+	<!-- -->
+	<div id="test_dv">Here</span>
+
+	<!-- main swf -->
+	<div id="mainCont_dv">
+		<embed
+			id="main_swf"
+			type="application/x-shockwave-flash"
+			pluginspage="http://www.macromedia.com/go/getflashplayer"
+			src="main.swf"
+			quality="high"
+			bgcolor="#ffffff"
+			width="100%"
+			height="100%"
+			align="middle"
+			allowScriptAccess="always"
+			allowFullScreen="true"
+			menu="false"
+			base="."
+			flashVars="" />
+	</div>
+
+	<!-- sub swf -->
+	<div id="subCont_dv"></div>
+
+</body>
+
+</html>
