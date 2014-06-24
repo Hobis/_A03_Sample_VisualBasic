@@ -132,7 +132,7 @@ var p_mainCall = function(type, args) {
 
 // - 도큐먼트 시작
 jQuery(document).ready(function() {
-	jQuery('#topUiCont_dv > button').click(
+	jQuery('#topUiCont_dv > span').click(
 		function() {
 			var t_v1;
 			switch (jQuery(this).text()) {
@@ -196,6 +196,18 @@ jQuery(document).ready(function() {
 		margin-top: 40px;
 		margin-bottom: 40px;
 	}
+
+	span.button_sp {
+		background-color: #ff0000;
+		font-family: 돋움;
+		font-size: 11px;
+		color: #ffffff;
+		padding-left: 4px;
+		padding-right: 4px;
+		padding-top: 4px;
+		padding-bottom: 4px;
+		cursor: pointer;
+	}
 </style>
 </head>
 
@@ -203,29 +215,29 @@ jQuery(document).ready(function() {
 	<!-- Main Container -->
 	<div id="mainCont_dv">
 		<div id="topUiCont_dv">
-			<button type="button">Win_Set_Title</button>
+			<span class="button_sp">Win_Set_Title</span>
 			<input type="text" id="title_ip" value="타이트명을 변경하세요.">
 			<br />
 			<br />
-			<button type="button">Win_Visible</button>
+			<span class="button_sp">Win_Visible</span>
 			<input type="checkbox" id="visible_ip" checked="checked">
 			<br />
 			<br />
-			<button type="button">Win_Resize_Max</button>
+			<span class="button_sp">Win_Resize_Max</span>
 			<br />
 			<br />
-			<button type="button">Win_Resize_Min</button>
+			<span class="button_sp">Win_Resize_Min</span>
 			<br />
 			<br />
-			<button type="button">Win_Resize_Normal</button>
+			<span class="button_sp">Win_Resize_Normal</span>
 			<br />
 			<br />
-			<button type="button">Win_Resize</button>&nbsp;&nbsp;
+			<span class="button_sp">Win_Resize</span>&nbsp;&nbsp;
 			Width: <input type="text" id="rw_ip" value="800">&nbsp;&nbsp;&nbsp;&nbsp;
 			Height: <input type="text" id="rh_ip" value="600">
 			<br />
 			<br />
-			<button type="button">Win_Location</button>&nbsp;&nbsp;
+			<span class="button_sp">Win_Location</span>&nbsp;&nbsp;
 			X: <input type="text" id="lx_ip" value="100">&nbsp;&nbsp;&nbsp;&nbsp;
 			Y: <input type="text" id="ly_ip" value="100">
 			<br />
