@@ -143,9 +143,8 @@ jQuery(document).ready(function() {
 				}
 
 				case 'Win_Visible': {
-					t_v1 = jQuery('#visible_ip').attr('checked');
-					alert('t_v1: ' + t_v1);
-					//p_mainCall('Win_Visible', [jQuery('#visible_ip').attr('checked').toString()]);
+					t_v1 = jQuery('#visible_ip').is(':checked');
+					p_mainCall('Win_Visible', [t_v1]);
 					break;
 				}
 
@@ -209,7 +208,7 @@ jQuery(document).ready(function() {
 			<br />
 			<br />
 			<button type="button">Win_Visible</button>
-			<input type="checkbox" id="visible_ip" checked>
+			<input type="checkbox" id="visible_ip" checked="checked">
 			<br />
 			<br />
 			<button type="button">Win_Resize_Max</button>
@@ -221,12 +220,14 @@ jQuery(document).ready(function() {
 			<button type="button">Win_Resize_Normal</button>
 			<br />
 			<br />
-			<button type="button">Win_Resize</button>
-			<input type="text" id="rw_ip" value="800">
-			<input type="text" id="rh_ip" value="600">
+			<button type="button">Win_Resize</button>&nbsp;&nbsp;
+			Width: <input type="text" id="rw_ip" value="800">&nbsp;&nbsp;&nbsp;&nbsp;
+			Height: <input type="text" id="rh_ip" value="600">
 			<br />
 			<br />
-			<button type="button">Win_Location</button>
+			<button type="button">Win_Location</button>&nbsp;&nbsp;
+			X: <input type="text" id="lx_ip" value="100">&nbsp;&nbsp;&nbsp;&nbsp;
+			Y: <input type="text" id="ly_ip" value="100">
 			<br />
 			<br />
 			<br />
