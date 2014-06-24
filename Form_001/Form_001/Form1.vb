@@ -37,8 +37,9 @@
 
 
 
+
     Private Const Js_Init As String = "Js_Init"
-    Private Const Win_Rename As String = "Win_Rename"
+    Private Const Win_Set_Title As String = "Win_Set_Title"
     Private Const Win_Visible As String = "Win_Visible"
     Private Const Win_Resize_Max As String = "Win_Resize_Max"
     Private Const Win_Resize_Min As String = "Win_Resize_Min"
@@ -66,21 +67,43 @@
         Select Case type
             Case Js_Init
 
-            Case Win_Rename
+            Case Win_Set_Title
                 Dim t_name As String = CType(args(0), String)
                 Me.Text = t_name
 
             Case Win_Visible
+                MessageBox.Show(args(0))
+                'Dim t_b As Boolean = CType(args(0), Boolean)
+                'Me.Visible = t_b
+
+                'MessageBox.Show("여기 조건을 타는겁니까")
+
 
             Case Win_Resize_Max
+                Me.WindowState = FormWindowState.Maximized
 
             Case Win_Resize_Min
+                Me.WindowState = FormWindowState.Minimized
 
             Case Win_Resize_Normal
+                Me.WindowState = FormWindowState.Normal
 
             Case Win_Resize
+                Me.WindowState = FormWindowState.Normal
+
+                Dim t_s As Size = Me.Size
+                t_s.Width = CType(args(0), Integer)
+                t_s.Height = CType(args(1), Integer)
+                Me.Size = t_s
 
             Case Win_Location
+                Me.WindowState = FormWindowState.Normal
+
+                Dim t_p As Point = Me.Location
+                t_p.X = CType(args(0), Integer)
+                t_p.Y = CType(args(1), Integer)
+                Me.Location = t_p
+
         End Select
     End Sub
 

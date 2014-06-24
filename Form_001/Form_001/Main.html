@@ -134,15 +134,18 @@ var p_mainCall = function(type, args) {
 jQuery(document).ready(function() {
 	jQuery('#topUiCont_dv > button').click(
 		function() {
+			var t_v1;
 			switch (jQuery(this).text()) {
 				case 'Win_Set_Title': {
-					p_mainCall('Win_Set_Title', [jQuery('#title_ip').val().toString()]);
+					t_v1 = jQuery('#title_ip').val().toString();
+					p_mainCall('Win_Set_Title', [Win_Set_Title]);
 					break;
 				}
 
 				case 'Win_Visible': {
-					alert(jQuery('#visible_ip').attr('checked').toString());
-					p_mainCall('Win_Visible', [jQuery('#visible_ip').attr('checked').toString()]);
+					t_v1 = jQuery('#visible_ip').attr('checked');
+					alert('t_v1: ' + t_v1);
+					//p_mainCall('Win_Visible', [jQuery('#visible_ip').attr('checked').toString()]);
 					break;
 				}
 
@@ -206,7 +209,7 @@ jQuery(document).ready(function() {
 			<br />
 			<br />
 			<button type="button">Win_Visible</button>
-			<input type="checkbox" id="visible_ip" checked="checked">
+			<input type="checkbox" id="visible_ip" checked>
 			<br />
 			<br />
 			<button type="button">Win_Resize_Max</button>
