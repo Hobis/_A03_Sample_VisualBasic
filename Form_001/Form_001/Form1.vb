@@ -1,4 +1,11 @@
-﻿Public NotInheritable Class Form1
+﻿'
+' 본 스크립트는 닷넷 윈폼을 이용하여 윈도우창과 HTML/JS 또는 플래시와 연동는 샘플을 제공합니다
+' @Name: VisualBasic.NET WinForm
+' @Author: HobisJung
+' @Date: 2014-06-25
+'
+'
+Public NotInheritable Class Form1
 
     ' # 생성자
     Public Sub New()
@@ -18,7 +25,7 @@
 
     ' # 브라우저_컨트롤 Dom 로드 완료 핸들러
     Private Sub p_WebBrowser1_DocumentCompleted(ByVal sender As Object, ByVal wdcea As WebBrowserDocumentCompletedEventArgs) Handles WebBrowser1.DocumentCompleted
-
+        '
     End Sub
 
     ' # 풀스크립 설정
