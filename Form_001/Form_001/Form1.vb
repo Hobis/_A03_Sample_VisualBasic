@@ -121,13 +121,13 @@
 
 
 
-    '
-    Private Const _name As String = "MainWin"
+    ' - 메인이름
+    Private Const _name As String = "HobisWin"
 
-    '
+    ' - 버전
     Private Const _ver As String = "Ver 1.0"
 
-    '
+    ' - 타이틀
     Private Const _title As String = _name & " " & _ver
 
 

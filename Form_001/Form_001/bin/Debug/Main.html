@@ -204,6 +204,7 @@ jQuery(document).ready(function() {
 		}
 	);
 
+	//alert(jQuery('#topUiCont_dv').css('display', 'inline-block'));
 	//alert(window.navigator.userAgent);
 });
 </script>
@@ -249,7 +250,6 @@ body {
 
 #topUiCont_dv span.group_sp {
 	position: absolute; left: 0px; top: 0px;
-	display: table;
 }
 </style>
 </head>
@@ -264,7 +264,7 @@ body {
 			<br />
 			<br />
 			<span class="button_sp">Win_Visible</span>
-			<span class="group_sp"><input type="checkbox" id="visible_ip" checked="checked">보이기/안보이기</span>
+			<span class="group_sp" style="width: 300px;"><input type="checkbox" id="visible_ip" checked="checked"><span style="position: absolute; top: 5px;">보이기/안보이기</span></span>
 			<br />
 			<br />
 			<span class="button_sp">Win_Resize_Max</span>
