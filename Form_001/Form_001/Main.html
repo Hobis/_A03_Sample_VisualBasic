@@ -134,11 +134,11 @@ var p_mainCall = function(type, args) {
 jQuery(document).ready(function() {
 	jQuery('#topUiCont_dv > span').click(
 		function() {
-			var t_v1;
+			var t_v1, t_v2;
 			switch (jQuery(this).text()) {
 				case 'Win_Set_Title': {
 					t_v1 = jQuery('#title_ip').val().toString();
-					p_mainCall('Win_Set_Title', [Win_Set_Title]);
+					p_mainCall('Win_Set_Title', [t_v1]);
 					break;
 				}
 
@@ -154,19 +154,26 @@ jQuery(document).ready(function() {
 				}
 
 				case 'Win_Resize_Min': {
+					p_mainCall('Win_Resize_Min');
 					break;
 				}
 
 				case 'Win_Resize_Normal': {
+					p_mainCall('Win_Resize_Normal');
 					break;
 				}
 
 				case 'Win_Resize': {
-					p_mainCall('Win_Set_Title', [jQuery('rw_ip').val(), jQuery('rh_ip').val()]);
+					t_v1 = jQuery('#rw_ip').val();
+					t_v2 = jQuery('#rh_ip').val();
+					p_mainCall('Win_Resize', [t_v1, t_v2]);
 					break;
 				}
 
 				case 'Win_Location': {
+					t_v1 = jQuery('#lx_ip').val();
+					t_v2 = jQuery('#ly_ip').val();
+					p_mainCall('Win_Location', [t_v1, t_v2]);
 					break;
 				}
 			}
@@ -175,52 +182,63 @@ jQuery(document).ready(function() {
 });
 </script>
 <style type="text/css" media="screen">
-	body {
-		margin: 0px; padding: 0px; overflow: hidden;
-		background-color: #ffffff;
-	}
+body {
+	margin: 0px; padding: 0px; overflow: hidden;
+	background-color: #ffffff;
+	font-family: 돋움;
+	font-size: 11px;
+}
 
-	#mainCont_dv {
-		width: 100%; height: 100%; position: absolute; left: 0px; top: 0px;
-		overflow: hidden;
-	}
-	#subCont_dv {
-		width: 100%; height: 100%; position: absolute; left: 0px; top: 0px;
-		display: none; overflow: hidden;
-	}
-	#topUiCont_dv {
-		width: 100%; height: 100%; position: absolute; left: 0px; top: 0px;
-		overflow: hidden;
-		margin-left: 40px;
-		margin-right: 40px;
-		margin-top: 40px;
-		margin-bottom: 40px;
-	}
+#mainCont_dv {
+	width: 100%; height: 100%;
+	position: absolute; left: 0px; top: 0px;
+	overflow: hidden;
+}
+#subCont_dv {
+	width: 100%; height: 100%;
+	position: absolute; left: 0px; top: 0px;
+	display: none; overflow: hidden;
+}
+#topUiCont_dv {
+	width: 100%; height: 100%;
+	position: absolute; left: 0px; top: 0px;
+	overflow: hidden;
+	margin-left: 40px;
+	margin-right: 40px;
+	margin-top: 40px;
+	margin-bottom: 40px;
 
-	span.button_sp {
-		background-color: #ff0000;
-		font-family: 돋움;
-		font-size: 11px;
-		color: #ffffff;
-		padding-left: 4px;
-		padding-right: 4px;
-		padding-top: 4px;
-		padding-bottom: 4px;
-		cursor: pointer;
-	}
+}
+
+#topUiCont_dv span.button_sp {
+	background-color: #ff0000;
+	color: #ffffff;
+	padding-left: 4px;
+	padding-right: 4px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	cursor: pointer;
+	display: inline-block;
+	width: 120px;
+	text-align: center;
+}
+
+#topUiCont_dv input {
+	vertical-align: middle;
+}
 </style>
 </head>
 
-<body>
+<body ondragstart="return false" onselectstart="return false" oncontextmenu="return false">
 	<!-- Main Container -->
 	<div id="mainCont_dv">
 		<div id="topUiCont_dv">
 			<span class="button_sp">Win_Set_Title</span>
-			<input type="text" id="title_ip" value="타이트명을 변경하세요.">
+			<input type="text" id="title_ip" value="타이트명을 변경하세요." size="30">
 			<br />
 			<br />
 			<span class="button_sp">Win_Visible</span>
-			<input type="checkbox" id="visible_ip" checked="checked">
+			<input type="checkbox" id="visible_ip" checked="checked">보이기/안보이기
 			<br />
 			<br />
 			<span class="button_sp">Win_Resize_Max</span>
@@ -233,13 +251,13 @@ jQuery(document).ready(function() {
 			<br />
 			<br />
 			<span class="button_sp">Win_Resize</span>&nbsp;&nbsp;
-			Width: <input type="text" id="rw_ip" value="800">&nbsp;&nbsp;&nbsp;&nbsp;
-			Height: <input type="text" id="rh_ip" value="600">
+			Width: <input type="text" id="rw_ip" value="800" size="8">&nbsp;&nbsp;&nbsp;&nbsp;
+			Height: <input type="text" id="rh_ip" value="600" size="8">
 			<br />
 			<br />
 			<span class="button_sp">Win_Location</span>&nbsp;&nbsp;
-			X: <input type="text" id="lx_ip" value="100">&nbsp;&nbsp;&nbsp;&nbsp;
-			Y: <input type="text" id="ly_ip" value="100">
+			X: <input type="text" id="lx_ip" value="100" size="8">&nbsp;&nbsp;&nbsp;&nbsp;
+			Y: <input type="text" id="ly_ip" value="100" size="8">
 			<br />
 			<br />
 			<br />

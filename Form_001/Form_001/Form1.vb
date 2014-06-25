@@ -1,6 +1,6 @@
 ﻿Public NotInheritable Class Form1
 
-    '
+    ' # 생성자
     Public Sub New()
 
         ' This call is required by the designer.
@@ -11,18 +11,17 @@
     End Sub
 
 
-    '
+    ' # 폼 로드 핸들러
     Private Sub p_Form1_Load(ByVal sender As Object, ByVal ea As EventArgs) Handles MyBase.Load
         Me.p_InitOnce()
     End Sub
 
-
-    '
+    ' # 브라우저_컨트롤 Dom 로드 완료 핸들러
     Private Sub p_WebBrowser1_DocumentCompleted(ByVal sender As Object, ByVal wdcea As WebBrowserDocumentCompletedEventArgs) Handles WebBrowser1.DocumentCompleted
 
     End Sub
 
-    '
+    ' # 풀스크립 설정
     Private Sub p_SetFullScreen(ByVal b As Boolean)
         If b Then
             Me.TopMost = True
@@ -37,14 +36,28 @@
 
 
 
+    ' - 윈도우 초기화
+    Private Const Win_Init As String = "Win_Init"
 
-    Private Const Js_Init As String = "Js_Init"
+    ' - 윈도우 타이틀 변경
     Private Const Win_Set_Title As String = "Win_Set_Title"
+
+    ' - 윈도우 보이기/안보이기
     Private Const Win_Visible As String = "Win_Visible"
+
+    ' - 윈도우 리사이즈 최대
     Private Const Win_Resize_Max As String = "Win_Resize_Max"
+
+    ' - 윈도우 리사이즈 최소
     Private Const Win_Resize_Min As String = "Win_Resize_Min"
+
+    ' - 윈도우 리사이즈 기본
     Private Const Win_Resize_Normal As String = "Win_Resize_Normal"
+
+    ' - 윈도우 리사이즈
     Private Const Win_Resize As String = "Win_Resize"
+
+    ' - 윈도우 위치 변경
     Private Const Win_Location As String = "Win_Location"
 
 
@@ -59,25 +72,21 @@
 
     ' :: Js 호출 노멀
     Public Sub Js_CallBack_n(ByVal type As String)
-        'Me.Js_CallBack(type, null)
+        Me.Js_CallBack(type, Nothing)
     End Sub
 
     ' :: Js 호출
     Public Sub Js_CallBack(ByVal type As String, ByVal args As Object())
         Select Case type
-            Case Js_Init
+            Case Win_Init
 
             Case Win_Set_Title
                 Dim t_name As String = CType(args(0), String)
                 Me.Text = t_name
 
             Case Win_Visible
-                MessageBox.Show(args(0))
-                'Dim t_b As Boolean = CType(args(0), Boolean)
-                'Me.Visible = t_b
-
-                'MessageBox.Show("여기 조건을 타는겁니까")
-
+                Dim t_b As Boolean = CType(args(0), Boolean)
+                Me.Visible = t_b
 
             Case Win_Resize_Max
                 Me.WindowState = FormWindowState.Maximized
@@ -146,7 +155,8 @@
 
         Dim t_src As String = Path.Combine(Environment.CurrentDirectory, "Main.html")
         Me.WebBrowser1.Navigate(t_src)
+        'Me.WebBrowser1.Navigate("http://purecss.io/forms/")
     End Sub
 
-
 End Class
+
