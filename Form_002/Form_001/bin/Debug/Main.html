@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>PIXI_index_hb</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<style>
+body {
+	margin: 0px; padding: 0px; overflow: hidden;
+	background-color: #ffffff;
+	font-family: 돋움;
+	font-size: 11px;
+}
+
+#mainCont_dv {
+	width: 100%; height: 100%;
+	position: absolute; left: 0px; top: 0px;
+	overflow: hidden;
+}
+</style>
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/pixi.js"></script>
+<script>
+// ::
+jQuery(document).ready(
+	function() {
+		var t_do = {};
+		window._dataObj = t_do;
+
+		// {{ 기본 설정
+		t_do.stageWidth = 600;
+		t_do.stageHeight = 600;
+		t_do.stageColor = 0x330000;
+
+		t_do.mainCont = window.document.getElementById('mainCont_dv');
+		t_do.stage = new PIXI.Stage(t_do.stageColor);
+		t_do.renderer = PIXI.autoDetectRenderer(t_do.stageWidth, t_do.stageHeight);
+		t_do.mainCont.appendChild(t_do.renderer.view);
+		// }}
+
+
+		// {{ 객체 설정
+		var t_bgt = PIXI.Texture.fromImage('images/Background.png');
+		var t_bg = new PIXI.Sprite(t_bgt);
+
+		t_bg.anchor.x = 0;
+		t_bg.anchor.y = 0;
+		t_bg.position.x = 0;
+		t_bg.position.y = 0;
+
+		t_do.stage.addChild(t_bg);
+		// }}
+
+		t_do.requestAnimationFrame = function() {
+			var t_do = window._dataObj;
+			t_do.renderer.render(t_do.stage);
+
+			window.requestAnimationFrame(t_do.requestAnimationFrame);
+		};
+		window.requestAnimationFrame(t_do.requestAnimationFrame);
+	}
+);
+</script>
+</head>
+
+<body>
+<div id="mainCont_dv"></div>
+</body>
+
+</html>
+
