@@ -286,7 +286,6 @@ jQuery(document).ready(
 		};
 		window.requestAnimationFrame(t_do.requestAnimationFrame);
 
-
 		jQuery(document).keydown(
 			function(eObj) {
 /*
