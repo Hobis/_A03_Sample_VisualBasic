@@ -221,8 +221,10 @@ var p_canvas_createCells = function() {
 		var t_c = new PIXI.Sprite(t_do.ct);
 		t_c.anchor.x = 0;
 		t_c.anchor.y = 0;
-		t_c.position.x = t_do.cbx + Math.round((t_do.cdw + t_do.cmr) * (i % t_do.hl));
-		t_c.position.y = t_do.cby + Math.round((t_do.cdh + t_do.cmb) * Math.floor(i / t_do.hl));
+		var t_rx = Math.round((t_do.cdw + t_do.cmr) * (i % t_do.hl));
+		var t_ry = Math.round((t_do.cdh + t_do.cmb) * Math.floor(i / t_do.hl));
+		t_c.position.x = t_do.cbx + t_rx;
+		t_c.position.y = t_do.cby + t_ry;
 		t_c.visible = false;
 		t_c.d_ci = i;//CellIndex
 		t_c.d_cs = 0;//CellState 0, 1, 2, 3, 4, 5, 6, 7
@@ -250,8 +252,12 @@ var p_canvas_init = function() {
 
 	p_canvas_createCells();
 
-	p_canvas_shapeObjCreate(7);
+	p_canvas_shapeObjCreate(3);
 };
+/*
+# 테트리스 알고리즘 설명
+	각 세
+	*/
 
 //
 jQuery(document).ready(
@@ -281,7 +287,6 @@ jQuery(document).ready(
 		t_do.requestAnimationFrame = function() {
 			var t_do = window._dataObj;
 			t_do.renderer.render(t_do.stage);
-
 			window.requestAnimationFrame(t_do.requestAnimationFrame);
 		};
 		window.requestAnimationFrame(t_do.requestAnimationFrame);
