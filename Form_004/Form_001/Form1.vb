@@ -1,10 +1,9 @@
-﻿'
-' 본 스크립트는 닷넷 윈폼을 이용하여 윈도우창과 HTML/JS 또는 플래시와 연동는 샘플을 제공합니다
+﻿'---------------------------------------------------------------------------------------------------------------------------
+' # 본 스크립트는 닷넷 윈폼을 이용하여 윈도우창과 HTML/JS 또는 플래시와 연동는 샘플을 제공합니다
 ' @Name: VisualBasic.NET WinForm
 ' @Author: HobisJung
 ' @Date: 2014-06-25
-'
-'
+'---------------------------------------------------------------------------------------------------------------------------
 Public NotInheritable Class Form1
 
     ' # 생성자
@@ -14,9 +13,7 @@ Public NotInheritable Class Form1
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-
     End Sub
-
 
     ' # 폼 로드 핸들러
     Private Sub p_Form1_Load(ByVal sender As Object, ByVal ea As EventArgs) Handles MyBase.Load
@@ -24,23 +21,57 @@ Public NotInheritable Class Form1
     End Sub
 
     ' # 브라우저_컨트롤 Dom 로드 완료 핸들러
-    Private Sub p_WebBrowser1_DocumentCompleted(ByVal sender As Object, ByVal wdcea As WebBrowserDocumentCompletedEventArgs) Handles WebBrowser1.DocumentCompleted
+    Private Sub p_WebBrowser1_DocumentCompleted(ByVal sender As Object, ByVal wdcea As WebBrowserDocumentCompletedEventArgs) _
+        Handles WebBrowser1.DocumentCompleted
         '
     End Sub
 
-    ' # 풀스크립 설정
+    Private Const WM_SYSCOMMAND As Integer = &H112
+    Private Const SC_MAXIMIZE As Integer = &HF030
+    ' # WndProcess 루프함수
+    Protected Overrides Sub WndProc(ByRef m As Message)
+        If (m.Msg.Equals(WM_SYSCOMMAND)) Then
+            If (m.WParam.ToInt32.Equals(SC_MAXIMIZE)) Then
+                Me.p_FullScreen()
+                Return
+            End If
+        End If
+
+        MyBase.WndProc(m)
+    End Sub
+
+    ' # 웹브라우저 키다운 핸들러
+    Private Sub p_WebBrowser1_PreviewKeyDown(ByVal sender As Object, ByVal pkdea As PreviewKeyDownEventArgs) _
+        Handles WebBrowser1.PreviewKeyDown
+        '
+        If pkdea.KeyCode = Keys.Escape Then
+            Me.p_SetFullScreen(False)
+        End If
+    End Sub
+
+    ' # 풀스크린 설정
     Private Sub p_SetFullScreen(ByVal b As Boolean)
         If b Then
             Me.TopMost = True
             Me.FormBorderStyle = FormBorderStyle.None
             Me.WindowState = FormWindowState.Maximized
             'Me.Bounds = Screen.PrimaryScreen.Bounds
+            Me.WebBrowser1.Focus()
         Else
+            Me.TopMost = False
             Me.WindowState = FormWindowState.Normal
             Me.FormBorderStyle = FormBorderStyle.Sizable
         End If
     End Sub
 
+    ' # 풀스크린 토글
+    Private Sub p_FullScreen()
+        If Me.TopMost Then
+            p_SetFullScreen(False)
+        Else
+            p_SetFullScreen(True)
+        End If
+    End Sub
 
 
     ' - 윈도우 초기화
@@ -131,15 +162,11 @@ Public NotInheritable Class Form1
     End Sub
 
 
-
-
-
-
     ' - 메인이름
-    Private Const _name As String = "HobisWin"
+    Private Const _name As String = "몽골어 초급1"
 
     ' - 버전
-    Private Const _ver As String = "Ver 1.0"
+    Private Const _ver As String = ""
 
     ' - 타이틀
     Private Const _title As String = _name & " " & _ver
@@ -169,8 +196,14 @@ Public NotInheritable Class Form1
 
         Dim t_src As String = Path.Combine(Environment.CurrentDirectory, "Main.html")
         Me.WebBrowser1.Navigate(t_src)
-        'Me.WebBrowser1.Navigate("http://purecss.io/forms/")
+
+        'Me.BringToFront()
+        'Me.Focus()
+        'Me.KeyPreview = True
+        'Me.WebBrowser1.Visible = False
     End Sub
 
 End Class
+
+
 

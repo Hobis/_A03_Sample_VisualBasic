@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+<title>Little CHESS</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script type="text/javascript" src="js/jquery-1.10.2.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+var ds_SubContentClose = function()
+{
+};
+var ds_SubContentOpen = function(name)
+{
+};
+var ds_Init = function()
+{
+	jQuery('#mainCont_dv').focus();
+};
+jQuery(document).ready(function()
+{
+	ds_Init();
+});
+</script>
+<style type="text/css" media="screen">
+	html, body {
+		height: 100%; background-color: #ffffff;
+	}
+	body {
+		margin: 0px; padding: 0px; overflow:hidden;
+	}
+
+	#mainCont_dv {
+		width: 100%; height: 100%; position: absolute; left: 0px; top: 0px;
+		overflow: hidden;
+	}
+	#subCont_dv {
+		width: 100%; height: 100%; position: absolute; left: 0px; top: 0px;
+		display: none;
+		overflow: hidden;
+	}
+</style>
+</head>
+<body>
+	<!-- Main Swf -->
+	<div id="mainCont_dv">
+		<!-- 어차피 디렉터에서는 IE만 쓴다 -->
+		<embed
+			type="application/x-shockwave-flash"
+			pluginspage="http://www.macromedia.com/go/getflashplayer"
+			src="ebook/Textbook.swf"
+			quality="high"
+			bgcolor="#ffffff"
+			width="100%"
+			height="100%"
+			align="middle"
+			allowScriptAccess="always"
+			allowFullScreen="true"
+			menu="false"
+			base="."
+			flashVars="mainType=teacher&langType=kor&exeType=director" />
+	</div>
+
+	<!-- Sub Swf -->
+	<div id="subCont_dv"></div>
+</body>
+</html>
