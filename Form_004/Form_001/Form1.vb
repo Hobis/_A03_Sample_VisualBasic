@@ -1,4 +1,6 @@
-﻿'---------------------------------------------------------------------------------------------------------------------------
+﻿Imports System.Xml
+
+'---------------------------------------------------------------------------------------------------------------------------
 ' # 본 스크립트는 닷넷 윈폼을 이용하여 윈도우창과 HTML/JS 또는 플래시와 연동는 샘플을 제공합니다
 ' @Name: VisualBasic.NET WinForm
 ' @Author: HobisJung
@@ -13,17 +15,34 @@ Public NotInheritable Class Form1
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
+        Me.p_InitOnce()
+    End Sub
+
+    ' -
+    Private _bFirst As Boolean = True
+
+    ' #
+    Protected Overrides Sub SetVisibleCore(ByVal value As Boolean)
+        If (Me._bFirst) Then
+            MyBase.SetVisibleCore(False)
+            Me._bFirst = False
+        Else
+            MyBase.SetVisibleCore(value)
+        End If
     End Sub
 
     ' # 폼 로드 핸들러
     Private Sub p_Form1_Load(ByVal sender As Object, ByVal ea As EventArgs) Handles MyBase.Load
-        Me.p_InitOnce()
+        '
     End Sub
 
     ' # 브라우저_컨트롤 Dom 로드 완료 핸들러
     Private Sub p_WebBrowser1_DocumentCompleted(ByVal sender As Object, ByVal wdcea As WebBrowserDocumentCompletedEventArgs) _
         Handles WebBrowser1.DocumentCompleted
         '
+        RemoveHandler Me.WebBrowser1.DocumentCompleted, AddressOf Me.p_WebBrowser1_DocumentCompleted
+
+        MyBase.SetVisibleCore(True)
     End Sub
 
     Private Const WM_SYSCOMMAND As Integer = &H112
@@ -163,7 +182,7 @@ Public NotInheritable Class Form1
 
 
     ' - 메인이름
-    Private Const _name As String = "몽골어 초급1"
+    Private Const _name As String = "KDB 중국어"
 
     ' - 버전
     Private Const _ver As String = ""
@@ -172,8 +191,53 @@ Public NotInheritable Class Form1
     Private Const _title As String = _name & " " & _ver
 
 
-    ' 초기화 한번
+    ' - XML
+    Private Const _xml As String;
+
+    ' #
+    Private Function p_Xml_Load() As Boolean
+        Dim t_rv As Boolean = False
+
+        Dim t_xmlFile As String = _
+            Path.GetFileNameWithoutExtension(Application.ExecutablePath)
+        t_xmlFile = _
+            Path.Combine(Environment.CurrentDirectory, t_xmlFile & ".xml")
+
+        'MessageBox.Show("t_xmlFile: " & t_xmlFile)
+
+        If (File.Exists(t_xmlFile)) Then
+            Me._xml = New XmlDocument()
+            Me._xml.PreserveWhitespace = False
+            Me._xml.Load(t_xmlFile)
+
+            t_rv = True
+        Else
+            t_rv = False
+        End If
+
+        Return t_rv;
+
+    End Function
+
+
+    ' # 초기화 한번
     Private Sub p_InitOnce()
+        Dim t_dll As String = "RuntimeSupport2.dll"
+        Dim t_addDll As String = _
+            Path.Combine(Environment.CurrentDirectory, t_dll)
+
+        If (File.Exists(t_addDll)) Then
+            Me.p_Xml_Load()
+        Else
+            MessageBox.Show(t_dll & " 파일을 찾을수 없습니다.", "Main")
+            Me.p_Xml_Load()
+            Environment.Exit(1)
+        End If
+
+    End Sub
+
+    ' #
+    Private Sub p_WinInit()
         'Me.AutoSizeMode = AutoSizeMode.GrowAndShrink
         'Me.MaximizeBox = False
         'Me.StartPosition = FormStartPosition.Manual
@@ -182,8 +246,8 @@ Public NotInheritable Class Form1
         'Me.Height = 700
         'Me.p_SetFullScreen(True)
         Dim t_s As Size = New Size()
-        t_s.Width = 800
-        t_s.Height = 600
+        t_s.Width = 1170
+        t_s.Height = 796
         Me.ClientSize = t_s
         Me.MinimumSize = Me.Size
         Me.Text = _title
@@ -202,6 +266,10 @@ Public NotInheritable Class Form1
         'Me.KeyPreview = True
         'Me.WebBrowser1.Visible = False
     End Sub
+
+    Private Function t_xmlFile() As String
+        Throw New NotImplementedException
+    End Function
 
 End Class
 
