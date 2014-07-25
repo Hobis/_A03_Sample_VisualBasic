@@ -8,7 +8,7 @@
 '---------------------------------------------------------------------------------------------------------------------------
 Public NotInheritable Class Form1
 
-    ' # 생성자
+    ' :: 생성자
     Public Sub New()
 
         ' This call is required by the designer.
@@ -21,7 +21,7 @@ Public NotInheritable Class Form1
     ' -
     Private _bFirst As Boolean = True
 
-    ' #
+    ' ::
     Protected Overrides Sub SetVisibleCore(ByVal value As Boolean)
         If (Me._bFirst) Then
             MyBase.SetVisibleCore(False)
@@ -31,12 +31,12 @@ Public NotInheritable Class Form1
         End If
     End Sub
 
-    ' # 폼 로드 핸들러
+    ' :: 폼 로드 핸들러
     Private Sub p_Form1_Load(ByVal sender As Object, ByVal ea As EventArgs) Handles MyBase.Load
         '
     End Sub
 
-    ' # 브라우저_컨트롤 Dom 로드 완료 핸들러
+    ' :: 브라우저_컨트롤 Dom 로드 완료 핸들러
     Private Sub p_WebBrowser1_DocumentCompleted(ByVal sender As Object, ByVal wdcea As WebBrowserDocumentCompletedEventArgs) _
         Handles WebBrowser1.DocumentCompleted
         '
@@ -47,7 +47,7 @@ Public NotInheritable Class Form1
 
     Private Const WM_SYSCOMMAND As Integer = &H112
     Private Const SC_MAXIMIZE As Integer = &HF030
-    ' # WndProcess 루프함수
+    ' :: WndProcess 루프함수
     Protected Overrides Sub WndProc(ByRef m As Message)
         If (m.Msg.Equals(WM_SYSCOMMAND)) Then
             If (m.WParam.ToInt32.Equals(SC_MAXIMIZE)) Then
@@ -59,7 +59,7 @@ Public NotInheritable Class Form1
         MyBase.WndProc(m)
     End Sub
 
-    ' # 웹브라우저 키다운 핸들러
+    ' :: 웹브라우저 키다운 핸들러
     Private Sub p_WebBrowser1_PreviewKeyDown(ByVal sender As Object, ByVal pkdea As PreviewKeyDownEventArgs) _
         Handles WebBrowser1.PreviewKeyDown
         '
@@ -68,7 +68,7 @@ Public NotInheritable Class Form1
         End If
     End Sub
 
-    ' # 풀스크린 설정
+    ' :: 풀스크린 설정
     Private Sub p_SetFullScreen(ByVal b As Boolean)
         If b Then
             Me.TopMost = True
@@ -83,7 +83,7 @@ Public NotInheritable Class Form1
         End If
     End Sub
 
-    ' # 풀스크린 토글
+    ' :: 풀스크린 토글
     Private Sub p_FullScreen()
         If Me.TopMost Then
             p_SetFullScreen(False)
@@ -120,6 +120,9 @@ Public NotInheritable Class Form1
     ' - 윈도우 풀스크린
     Private Const Win_Resize_FullScreen As String = "Win_Resize_FullScreen"
 
+    ' - 윈도우 열기
+    Private Const Win_Open As String = "Win_Open"
+
 
     ' :: Js 함수 호출
     Private Sub p_Js_Call(ByVal funcName As String, ByVal args As Object())
@@ -139,6 +142,7 @@ Public NotInheritable Class Form1
     Public Sub Js_CallBack(ByVal type As String, ByVal args As Object())
         Select Case type
             Case Win_Init
+                '
 
             Case Win_Set_Title
                 Dim t_name As String = CType(args(0), String)
@@ -177,63 +181,27 @@ Public NotInheritable Class Form1
                 Dim t_b As Boolean = CType(args(0), Boolean)
                 p_SetFullScreen(t_b)
 
+
+            Case Win_Open
+                Dim t_path As String = CType(args(0), String)
+                'MsgBox(t_path)
+                Process.Start(t_path)
+
         End Select
     End Sub
 
-
-    ' - 메인이름
-    Private Const _name As String = "KDB 중국어"
-
-    ' - 버전
-    Private Const _ver As String = ""
-
-    ' - 타이틀
-    Private Const _title As String = _name & " " & _ver
-
-
-    ' - XML
-    Private Const _xml As String;
-
-    ' #
-    Private Function p_Xml_Load() As Boolean
-        Dim t_rv As Boolean = False
-
-        Dim t_xmlFile As String = _
-            Path.GetFileNameWithoutExtension(Application.ExecutablePath)
-        t_xmlFile = _
-            Path.Combine(Environment.CurrentDirectory, t_xmlFile & ".xml")
-
-        'MessageBox.Show("t_xmlFile: " & t_xmlFile)
-
-        If (File.Exists(t_xmlFile)) Then
-            Me._xml = New XmlDocument()
-            Me._xml.PreserveWhitespace = False
-            Me._xml.Load(t_xmlFile)
-
-            t_rv = True
-        Else
-            t_rv = False
-        End If
-
-        Return t_rv;
-
-    End Function
-
-
     ' # 초기화 한번
     Private Sub p_InitOnce()
-        Dim t_dll As String = "RuntimeSupport2.dll"
-        Dim t_addDll As String = _
-            Path.Combine(Environment.CurrentDirectory, t_dll)
+        Dim t_dllFile As String = "RuntimeSupport.dll"
+        Dim t_dllFilePath As String = Path.Combine(Environment.CurrentDirectory, t_dllFile)
 
-        If (File.Exists(t_addDll)) Then
-            Me.p_Xml_Load()
+        If (File.Exists(t_dllFilePath)) Then
+            Me.p_WinInit()
         Else
-            MessageBox.Show(t_dll & " 파일을 찾을수 없습니다.", "Main")
-            Me.p_Xml_Load()
+            MessageBox.Show(t_dllFile & " 파일을 찾을수 없습니다.", "Main")
+
             Environment.Exit(1)
         End If
-
     End Sub
 
     ' #
@@ -250,7 +218,8 @@ Public NotInheritable Class Form1
         t_s.Height = 796
         Me.ClientSize = t_s
         Me.MinimumSize = Me.Size
-        Me.Text = _title
+        Me.Text = "Main"
+
 
         Me.WebBrowser1.ObjectForScripting = Me
         Me.WebBrowser1.IsWebBrowserContextMenuEnabled = False
@@ -258,7 +227,14 @@ Public NotInheritable Class Form1
         Me.WebBrowser1.WebBrowserShortcutsEnabled = False
         Me.WebBrowser1.ScrollBarsEnabled = False
 
-        Dim t_src As String = Path.Combine(Environment.CurrentDirectory, "Main.html")
+        Dim t_xmlFile As String = _
+                    Path.GetFileNameWithoutExtension(Application.ExecutablePath)
+        t_xmlFile = _
+            Path.Combine(Environment.CurrentDirectory, t_xmlFile & ".xml")
+
+
+        Dim t_name As String = Path.GetFileNameWithoutExtension(Application.ExecutablePath)
+        Dim t_src As String = Path.Combine(Environment.CurrentDirectory, t_name & ".html")
         Me.WebBrowser1.Navigate(t_src)
 
         'Me.BringToFront()
@@ -266,10 +242,6 @@ Public NotInheritable Class Form1
         'Me.KeyPreview = True
         'Me.WebBrowser1.Visible = False
     End Sub
-
-    Private Function t_xmlFile() As String
-        Throw New NotImplementedException
-    End Function
 
 End Class
 

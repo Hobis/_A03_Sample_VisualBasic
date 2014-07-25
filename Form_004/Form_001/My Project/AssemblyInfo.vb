@@ -8,12 +8,12 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("Form_001")> 
-<Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("Form_001")> 
-<Assembly: AssemblyCopyright("Copyright ©  2014")> 
-<Assembly: AssemblyTrademark("")> 
+<Assembly: AssemblyTitle("Hobis Win32")> 
+<Assembly: AssemblyDescription("HobisSoft Window x86")> 
+<Assembly: AssemblyCompany("HobisSoft")> 
+<Assembly: AssemblyProduct("Hobis Win32 Runtime")> 
+<Assembly: AssemblyCopyright("HobisSoft Copyright 2014")> 
+<Assembly: AssemblyTrademark("HobisSoft")> 
 
 <Assembly: ComVisible(True)> 
 
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.0.0.0")> 
-<Assembly: AssemblyFileVersion("1.0.0.0")> 
+<Assembly: AssemblyVersion("1.2.1.7")> 
+<Assembly: AssemblyFileVersion("1.2.1.7")> 
