@@ -136,17 +136,21 @@ jQuery(document).ready(function() {
 	//p_get_swfObj('main_swf').d_as3_init();
 	//p_get_swfObj('main_swf').d_as2_init();
 
-	//p_mainCall('Js_Init');
-	//p_mainCall('Win_Rename', ['Outer']);
-	//p_mainCall('Win_Visible', [true]);
+	//p_mainCall('Win_Init');
+	//p_mainCall('Win_Set_Title', ['Title_Name']);
+	//p_mainCall('Win_Set_Visible', [true]);
+	//p_mainCall('Win_Set_MinSize', [800, 600]);
+	//p_mainCall('Win_Set_Location', [40, 40]);
 	//p_mainCall('Win_Resize_Max');
 	//p_mainCall('Win_Resize_Min');
 	//p_mainCall('Win_Resize_Normal');
-	//p_mainCall('Win_Resize', [500, 500]);
-	//p_mainCall('Win_Open', ['C:\\Users\\Hobis-PC\\Desktop\\ebook\\Main.exe']);
+	//p_mainCall('Win_Resize_FullScreen', [true]);
+	//p_mainCall('Win_Resize', [1024, 768]);
+	//p_mainCall('Win_Open', ['D:\\_Test\\Open.exe']);
 	p_mainCall('Win_Set_Title', ['KDB 중국어']);
-	p_mainCall('Win_Location', [40, 40]);
-	p_mainCall('Win_Min_Resize', [1170, 796]);
+	p_mainCall('Win_Set_MinSize', [1170, 796]);
+	p_mainCall('Win_Set_Location', [40, 40]);
+	p_mainCall('Win_Resize_FullScreen', [true]);
 
 	jQuery('#mainCont_dv').focus();
 });
